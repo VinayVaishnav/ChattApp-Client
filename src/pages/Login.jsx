@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux"
 import { VisuallyHidden } from '../components/styles/StyledComponents'
 import { userExists } from "../redux/reducers/auth"
 import { usernameValidator } from "../utils/validators"
+import { server } from "../constants/config"
 
 const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -36,7 +37,7 @@ const Login = () => {
         
         try {
             const { data } = await axios.post(
-                `http://localhost:3000/api/v1/user/login`,
+                `${server}/api/v1/user/login`,
                 {
                     username: username.value,
                     password: password.value,
@@ -71,7 +72,7 @@ const Login = () => {
                     "Content-Type":"multipart/form-data",
                 },
             }
-            const {data}=await axios.post("http://localhost:3000/api/v1/user/new",
+            const {data}=await axios.post(`${server}/api/v1/user/new`,
                 formData,config
             );
             dispatch(userExists(data.user));
