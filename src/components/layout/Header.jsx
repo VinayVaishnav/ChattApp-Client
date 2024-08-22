@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { userNotExists } from '../../redux/reducers/auth.js';
 import { setIsMobile, setIsNewGroup, setIsNotifications, setIsSearch } from '../../redux/reducers/misc.js';
 import { resetNotificationCount } from "../../redux/reducers/chat.js";
+import { server } from "../../constants/config.js";
 
 const SearchDialog= lazy(()=>import("../specific/Search"))
 const NotificationDialog= lazy(()=>import("../specific/Notifications"))
@@ -44,7 +45,7 @@ const Header = () => {
     const logoutHandler=async()=>{
         console.log("Logout");
         try{
-            const {data}=await axios.get("http://localhost:3000/api/v1/user/logout",{withCredentials:true});
+            const {data}=await axios.get(`${server}/api/v1/user/logout",{withCredentials:true}`);
             dispatch(userNotExists());
             toast.success(data.message);
         } catch(error){
